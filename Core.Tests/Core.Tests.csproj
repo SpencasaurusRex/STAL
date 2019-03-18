@@ -56,9 +56,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\STAL\STAL.csproj">
+    <ProjectReference Include="..\STAL\Core.csproj">
       <Project>{df657175-ea85-4e99-9f99-3197e8b20919}</Project>
-      <Name>STAL</Name>
+      <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.421
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAL", "STAL\STAL.csproj", "{DF657175-EA85-4E99-9F99-3197E8B20919}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{DF657175-EA85-4E99-9F99-3197E8B20919}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "STAL.Tests", "STAL.Tests\STAL.Tests.csproj", "{589A6DDC-B255-4509-81AD-0E27A7F92599}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Tests", "Core.Tests\Core.Tests.csproj", "{589A6DDC-B255-4509-81AD-0E27A7F92599}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

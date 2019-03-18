@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 
-namespace STAL.Interpreter
+namespace Core.Interpreter
 {
 	internal class PeekBuffer
 	{

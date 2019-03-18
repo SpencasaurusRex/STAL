@@ -3,7 +3,7 @@ using STAL.Interpreter;
 using System.IO;
 using System.Text;
 
-namespace STAL.Tests.Interpreter.Tests
+namespace Core.Tests.Interpreter.Tests
 {
 	[TestClass]
 	public class PeekBufferTests

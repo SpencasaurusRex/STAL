@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace STAL
+namespace Core
 {
 	public class Engine
 	{

@@ -1,4 +1,4 @@
-﻿namespace STAL.Interpreter
+﻿namespace Core.Interpreter
 {
 	internal class Token
 	{

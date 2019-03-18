@@ -2,12 +2,10 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("STAL.Tests")]
+[assembly: AssemblyTitle("Core.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("CareSource")]
-[assembly: AssemblyProduct("STAL.Tests")]
-[assembly: AssemblyCopyright("Copyright © CareSource 2019")]
+[assembly: AssemblyProduct("Core.Tests")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

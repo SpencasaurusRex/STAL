@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace STAL.Interpreter
+namespace Core.Interpreter
 {
 	internal class Tokenizer
 	{
