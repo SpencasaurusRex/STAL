@@ -36,6 +36,15 @@ namespace Core.Tests.Interpreter.Tests
         }
 
         [TestMethod]
+        [ExpectedException(typeof(EndOfStreamException))]
+        public void PeekTest_EndOfStreamException()
+        {
+            var streamReader = new MockStreamReader("");
+            PeekBuffer buffer = new PeekBuffer(streamReader);
+            buffer.Peek();
+        }
+
+        [TestMethod]
         public void PeekTest_EndOfStream_True()
         {
             var streamReader = new MockStreamReader("");
@@ -56,6 +65,8 @@ namespace Core.Tests.Interpreter.Tests
 
             Assert.AreEqual(false, buffer.EndOfStream);
         }
+
+        // TODO: Read tests
     }
 
 	public class MockStreamReader : StreamReader

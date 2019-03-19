@@ -7,7 +7,7 @@ namespace Core.Interpreter
 	{
 		StreamReader input;
 		
-		// Represents character that have been read from input, but not from this PeekBuffer
+		// Represents characters that have been read from input, but not from this PeekBuffer
 		Queue<char> inputQueue;
 		
 		public PeekBuffer(StreamReader input)
