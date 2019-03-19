@@ -8,8 +8,8 @@
     <ProjectGuid>{589A6DDC-B255-4509-81AD-0E27A7F92599}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>STAL.Tests</RootNamespace>
-    <AssemblyName>STAL.Tests</AssemblyName>
+    <RootNamespace>Core.Tests</RootNamespace>
+    <AssemblyName>Core.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -56,7 +56,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\STAL\Core.csproj">
+    <ProjectReference Include="..\Core\Core.csproj">
       <Project>{df657175-ea85-4e99-9f99-3197e8b20919}</Project>
       <Name>Core</Name>
     </ProjectReference>
