@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Core.Interpreter
 {
-	internal class PeekBuffer
+	public class PeekBuffer
 	{
 		StreamReader input;
 		
@@ -18,16 +19,26 @@ namespace Core.Interpreter
 
 		public char Peek(int index = 0)
 		{
+			if (index < 0)
+			{
+				throw new ArgumentOutOfRangeException("Peek index must be positive");
+			}
 			if (EndOfStream)
 			{
 				throw new EndOfStreamException();
 			}
 
-			int peeked = 0;
+			if (index < inputQueue.Count)
+			{
+				// The input queue already has that char in it
+				return inputQueue.ToArray()[index];
+			}
+
+			int peeked = inputQueue.Count;
 			char nextChar;
 			do
 			{
-				nextChar = NextChar;
+				nextChar = NextChar();
 				inputQueue.Enqueue(nextChar);
 			}
 			while (peeked++ < index);
@@ -46,10 +57,14 @@ namespace Core.Interpreter
 			{
 				return inputQueue.Dequeue();
 			}
-			return NextChar;
+			return NextChar();
 		}
 
 		public bool EndOfStream => inputQueue.Count == 0 && input.EndOfStream;
-		private char NextChar => (char)input.Read();
+
+		private char NextChar()
+		{
+			return (char)input.Read();
+		}
 	}
 }

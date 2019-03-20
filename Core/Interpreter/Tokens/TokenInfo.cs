@@ -1,18 +1,18 @@
-﻿namespace Core.Interpreter
+﻿namespace Core.Interpreter.Tokens
 {
-	internal class Token
+	public class TokenInfo
 	{
-		readonly dynamic data;
-		readonly TokenType type;
+		public readonly dynamic data;
+		public readonly TokenType type;
 
-		public Token(TokenType type, dynamic data = null)
+		public TokenInfo(TokenType type, dynamic data = null)
 		{
 			this.data = data;
 			this.type = type;
 		}
 	}
 
-	internal enum TokenType
+	public enum TokenType
 	{
 		Name,		//data : string
 		Number,		//data : double

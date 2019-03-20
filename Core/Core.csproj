@@ -49,11 +49,17 @@
   <ItemGroup>
     <Compile Include="Engine.cs" />
     <Compile Include="Interpreter\FileRepository.cs" />
-    <Compile Include="Interpreter\Parser.cs" />
+    <Compile Include="Interpreter\Productions\Parser.cs" />
     <Compile Include="Interpreter\PeekBuffer.cs" />
-    <Compile Include="Interpreter\Token.cs" />
+    <Compile Include="Interpreter\Tokens\CommentReader.cs" />
+    <Compile Include="Interpreter\Tokens\NameReader.cs" />
+    <Compile Include="Interpreter\Tokens\SingleSymbolReader.cs" />
+    <Compile Include="Interpreter\Tokens\TokenInfo.cs" />
+    <Compile Include="Interpreter\Tokens\NumberReader.cs" />
+    <Compile Include="Interpreter\Tokens\ITokenReader.cs" />
+    <Compile Include="Interpreter\Tokens\WhitespaceReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Interpreter\Tokenizer.cs" />
+    <Compile Include="Interpreter\Tokens\Tokenizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

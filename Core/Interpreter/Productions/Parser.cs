@@ -1,4 +1,6 @@
-﻿namespace Core.Interpreter
+﻿using Core.Interpreter.Tokens;
+
+namespace Core.Interpreter
 {
 	internal class Parser
 	{

@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Interpreter.Tests\PeekBufferTests.cs" />
+    <Compile Include="Interpreter.Tokens.Tests\TokenizerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

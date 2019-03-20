@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Core.Interpreter;
+using Core.Interpreter.Tokens;
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Core
@@ -9,6 +12,7 @@ namespace Core
 
 		public Engine()
 		{
+			// TODO: Have IoC for entire interpreter module too
 
 		}
 
@@ -23,11 +27,12 @@ namespace Core
 			{
 				if (file.ToLower().EndsWith(".stal"))
 				{
-					LoadFiles(file);
+					LoadFile(file);
 				}
 			}
 		}
 
+		// TODO: This and LoadFiles() should probably be in a separate file in the interpreter folder
 		public void LoadFile(string filePath)
 		{
 			if (!File.Exists(filePath))
@@ -39,6 +44,19 @@ namespace Core
 				throw new ArgumentException(string.Format("{0} is not a STAL program. STAL programs must end with .stal", filePath));
 			}
 
+			PeekBuffer buffer = new PeekBuffer(File.OpenText(filePath));
+
+			// TODO: Add token reader configuration
+			List<ITokenReader> tokenReaders = new List<ITokenReader>();
+			tokenReaders.Add(new NameReader());
+			tokenReaders.Add(new NumberReader());
+			tokenReaders.Add(new SingleSymbolReader(':', TokenType.Colon));
+			tokenReaders.Add(new SingleSymbolReader(',', TokenType.Comma));
+			tokenReaders.Add(new SingleSymbolReader('(', TokenType.LeftParen));
+			tokenReaders.Add(new SingleSymbolReader(')', TokenType.RightParen));
+			tokenReaders.Add(new SingleSymbolReader('"', TokenType.Quote));
+
+			Tokenizer tokenizer = new Tokenizer(buffer, tokenReaders);
 		}
 	}
 }
