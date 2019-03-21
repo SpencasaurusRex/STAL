@@ -16,7 +16,7 @@
 	{
 		Name,		//data : string
 		Number,		//data : double
-		Quote,		//data : null
+		String,		//data : string
 		Colon,		//data : null
 		Comma,		//data : null
 		LeftParen,	//data : null

@@ -54,6 +54,7 @@
     <Compile Include="Interpreter\Tokens\CommentReader.cs" />
     <Compile Include="Interpreter\Tokens\NameReader.cs" />
     <Compile Include="Interpreter\Tokens\SingleSymbolReader.cs" />
+    <Compile Include="Interpreter\Tokens\StringReader.cs" />
     <Compile Include="Interpreter\Tokens\TokenInfo.cs" />
     <Compile Include="Interpreter\Tokens\NumberReader.cs" />
     <Compile Include="Interpreter\Tokens\ITokenReader.cs" />

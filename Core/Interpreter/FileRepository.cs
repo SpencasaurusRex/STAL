@@ -14,7 +14,13 @@ namespace Core.Interpreter
 
 		public StreamReader OpenFile(string filePath)
 		{
-			if (!filePath.ToLower().EndsWith(".stal"))
+			CheckFile(filePath);
+			return File.OpenText(filePath);
+		}
+
+		public void CheckFile(string filePath)
+		{
+			if (!ValidFileExtension(filePath))
 			{
 				throw new ArgumentException(string.Format("{0} is not a STAL program. STAL programs must end with .stal", filePath));
 			}
@@ -22,8 +28,11 @@ namespace Core.Interpreter
 			{
 				throw new FileNotFoundException(string.Format("Unable to find file at {0}", filePath));
 			}
+		}
 
-			return File.OpenText(filePath);
+		public bool ValidFileExtension(string filePath)
+		{
+			return filePath.ToLower().EndsWith(".stal");
 		}
 	}
 }

@@ -13,9 +13,9 @@ namespace Core.Tests.Interpreter.Tokens.Tests
 		[TestMethod]
 		public void IdkSomeWeirdTest()
 		{
-			StringStreamReader reader = new StringStreamReader("testing 123 : , ( ) \"");
+			StringStreamReader reader = new StringStreamReader("testing 123 : , ( ) \"asd\"");
 			TokenType[] expectedTypes = { TokenType.Name, TokenType.Number, TokenType.Colon,
-					TokenType.Comma, TokenType.LeftParen, TokenType.RightParen, TokenType.Quote
+					TokenType.Comma, TokenType.LeftParen, TokenType.RightParen, TokenType.String
 			};
 
 			PeekBuffer buffer = new PeekBuffer(reader);
@@ -24,11 +24,11 @@ namespace Core.Tests.Interpreter.Tokens.Tests
 			tokenReaders.Add(new WhiteSpaceReader());
 			tokenReaders.Add(new NameReader());
 			tokenReaders.Add(new NumberReader());
+			tokenReaders.Add(new StringTokenReader());
 			tokenReaders.Add(new SingleSymbolReader(':', TokenType.Colon));
 			tokenReaders.Add(new SingleSymbolReader(',', TokenType.Comma));
 			tokenReaders.Add(new SingleSymbolReader('(', TokenType.LeftParen));
 			tokenReaders.Add(new SingleSymbolReader(')', TokenType.RightParen));
-			tokenReaders.Add(new SingleSymbolReader('"', TokenType.Quote));
 
 			Tokenizer tokenizer = new Tokenizer(buffer, tokenReaders);
 			for (int i = 0; i < expectedTypes.Length; i++)
