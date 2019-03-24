@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Core.Interpreter.Tokens
+﻿namespace Core.Interpreter.Tokens
 {
 	public class WhiteSpaceReader : ITokenReader
 	{

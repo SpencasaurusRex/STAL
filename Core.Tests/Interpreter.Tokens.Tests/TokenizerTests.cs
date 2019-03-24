@@ -2,7 +2,6 @@
 using Core.Interpreter.Tokens;
 using Core.Tests.Interpreter.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 
 namespace Core.Tests.Interpreter.Tokens.Tests
@@ -33,7 +32,7 @@ namespace Core.Tests.Interpreter.Tokens.Tests
 			Tokenizer tokenizer = new Tokenizer(buffer, tokenReaders);
 			for (int i = 0; i < expectedTypes.Length; i++)
 			{
-				Assert.AreEqual(expectedTypes[i].ToString(), tokenizer.GetToken().type.ToString());
+				Assert.AreEqual(expectedTypes[i].ToString(), tokenizer.GetToken().Type.ToString());
 			}
 			Assert.IsTrue(tokenizer.EndOfFile);
 		}
@@ -121,10 +120,8 @@ namespace Core.Tests.Interpreter.Tokens.Tests
 			PeekBuffer buffer = new PeekBuffer(reader);
 
 			List<ITokenReader> tokenReaders = new List<ITokenReader>();
-			var testReader = new TestReader();
-			testReader.IsStarting = true;
-			testReader.IsToken = false;
-			tokenReaders.Add(testReader);
+            var testReader = new TestReader {IsStarting = true, IsToken = false};
+            tokenReaders.Add(testReader);
 
 			var tokenizer = new Tokenizer(buffer, tokenReaders);
 			tokenizer.GetToken();
@@ -143,7 +140,7 @@ namespace Core.Tests.Interpreter.Tokens.Tests
 		public int CharsToRead { get; set; }
 		public bool ReturnTokenInfo { get; set; }
 		public TokenType Type { get; set; }
-		public Object Data { get; set; } = null;
+		public object Data { get; set; } = null;
 
 		public int IsStartingCalled { get; private set; } = -1;
 		public int CheckTokenCalled { get; private set; } = -1;

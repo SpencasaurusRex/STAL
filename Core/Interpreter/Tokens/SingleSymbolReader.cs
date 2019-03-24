@@ -2,8 +2,8 @@
 {
 	public class SingleSymbolReader : ITokenReader
 	{
-		char symbol;
-		TokenType type;
+        readonly char symbol;
+        readonly TokenType type;
 
 		public SingleSymbolReader(char symbol, TokenType type)
 		{

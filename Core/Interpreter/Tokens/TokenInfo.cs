@@ -2,13 +2,13 @@
 {
 	public class TokenInfo
 	{
-		public readonly dynamic data;
-		public readonly TokenType type;
+		public readonly dynamic Data;
+		public readonly TokenType Type;
 
 		public TokenInfo(TokenType type, dynamic data = null)
 		{
-			this.data = data;
-			this.type = type;
+			Data = data;
+			Type = type;
 		}
 	}
 

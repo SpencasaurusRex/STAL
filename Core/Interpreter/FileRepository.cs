@@ -3,15 +3,8 @@ using System.IO;
 
 namespace Core.Interpreter
 {
-	internal class FileRepository
+	class FileRepository
 	{
-		Engine engine;
-
-		public FileRepository(Engine engine)
-		{
-			this.engine = engine;
-		}
-
 		public StreamReader OpenFile(string filePath)
 		{
 			CheckFile(filePath);
@@ -22,11 +15,11 @@ namespace Core.Interpreter
 		{
 			if (!ValidFileExtension(filePath))
 			{
-				throw new ArgumentException(string.Format("{0} is not a STAL program. STAL programs must end with .stal", filePath));
+				throw new ArgumentException($"{filePath} is not a STAL program. STAL programs must end with .stal");
 			}
 			if (!File.Exists(filePath))
 			{
-				throw new FileNotFoundException(string.Format("Unable to find file at {0}", filePath));
+				throw new FileNotFoundException($"Unable to find file at {filePath}");
 			}
 		}
 
