@@ -7,22 +7,22 @@
 			return c == '/';
 		}
 
-		public bool CheckToken(PeekBuffer buffer)
+		public bool CheckToken(PeekBuffer<char> buffer)
 		{
-			var first = buffer.Peek();
-			var second = buffer.Peek(1);
-			return first == second && first == '/';
-		}
+			return buffer.TryPeek(out var first) && 
+                   buffer.TryPeek(1, out var second) && 
+                   first == second && 
+                   first == '/';
+        }
 
-		public TokenInfo ReadToken(PeekBuffer buffer)
+		public TokenInfo ReadToken(PeekBuffer<char> buffer)
 		{
-			buffer.Read();
-			buffer.Read();
+			buffer.TryRead(out _);
+			buffer.TryRead(out _);
 			bool nextLineSeen = false;
-			while (!buffer.EndOfStream)
-			{
-				char nextChar = buffer.Peek();
-				if (nextChar == '\r' || nextChar == '\n')
+			while (buffer.TryPeek(out var nextChar))
+            {
+                if (nextChar == '\r' || nextChar == '\n')
 				{
 					nextLineSeen = true;
 				}
@@ -30,7 +30,7 @@
 				{
 					break;
 				}
-				buffer.Read();
+				buffer.TryRead(out _);
 			}
 			return null;
 		}

@@ -9,24 +9,22 @@ namespace Core.Interpreter.Tokens
 			return c == '"' || c == '\'';
 		}
 
-		public bool CheckToken(PeekBuffer buffer)
+		public bool CheckToken(PeekBuffer<char> buffer)
 		{
 			return true;
 		}
 
-		public TokenInfo ReadToken(PeekBuffer buffer)
+		public TokenInfo ReadToken(PeekBuffer<char> buffer)
 		{
-			char startingChar = buffer.Read();
+			buffer.TryRead(out var startingChar);
 			StringBuilder str = new StringBuilder();
-			while (!buffer.EndOfStream)
+			while (buffer.TryRead(out var nextChar))
 			{
-				char nextChar = buffer.Peek();
 				if (nextChar == startingChar)
 				{
-					buffer.Read();
 					break;
 				}
-				str.Append(buffer.Read());
+				str.Append(nextChar);
 			}
 			return new TokenInfo(TokenType.String, str.ToString());
 		}

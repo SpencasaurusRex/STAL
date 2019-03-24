@@ -16,14 +16,14 @@
 			return c == symbol;
 		}
 
-		public bool CheckToken(PeekBuffer buffer)
+		public bool CheckToken(PeekBuffer<char> buffer)
 		{
 			return true;
 		}
 
-		public TokenInfo ReadToken(PeekBuffer buffer)
+		public TokenInfo ReadToken(PeekBuffer<char> buffer)
 		{
-			buffer.Read();
+			buffer.TryRead(out _);
 			return new TokenInfo(type);
 		}
 	}

@@ -1,70 +1,79 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace Core.Interpreter
 {
-	public class PeekBuffer
+	public class PeekBuffer<T>
 	{
-		StreamReader input;
+        readonly IEnumerator<T> input;
 		
-		// Represents characters that have been read from input, but not from this PeekBuffer
-		Queue<char> inputQueue;
-		
-		public PeekBuffer(StreamReader input)
+		// Represents items that have been read from input, but not from this PeekBuffer
+        readonly Queue<T> inputQueue;
+
+        public PeekBuffer(IEnumerator<T> input)
 		{
 			this.input = input;
-			inputQueue = new Queue<char>();
+			inputQueue = new Queue<T>();
 		}
 
-		public char Peek(int index = 0)
+        public bool TryPeek(out T item)
+        {
+            return TryPeek(0, out item);
+        }
+
+        public bool TryPeek(int index, out T item)
 		{
 			if (index < 0)
 			{
-				throw new ArgumentOutOfRangeException("Peek index must be positive");
-			}
-			if (EndOfStream)
-			{
-				throw new EndOfStreamException();
+				throw new ArgumentOutOfRangeException(nameof(index));
 			}
 
 			if (index < inputQueue.Count)
 			{
 				// The input queue already has that char in it
-				return inputQueue.ToArray()[index];
-			}
+				item = inputQueue.ToArray()[index];
+                return true;
+            }
 
 			int peeked = inputQueue.Count;
-			char nextChar;
 			do
 			{
-				nextChar = NextChar();
-				inputQueue.Enqueue(nextChar);
+                if (TryNextItem(out item))
+                {
+                    inputQueue.Enqueue(item);
+                }
+                else
+                {
+                    return false;
+                }
 			}
 			while (peeked++ < index);
 
-			return nextChar;
-		}
+            return true;
+        }
 
-		public char Read()
+		public bool TryRead(out T item)
 		{
-			if (EndOfStream)
-			{
-				throw new EndOfStreamException();
-			}
+            if (inputQueue.Count > 0 || TryPeek(out T _))
+            {
+                item = inputQueue.Dequeue();
+                return true;
+            }
 
-			if (inputQueue.Count > 0)
-			{
-				return inputQueue.Dequeue();
-			}
-			return NextChar();
-		}
+            item = default(T);
+            return false;
+        }
 
-		public bool EndOfStream => inputQueue.Count == 0 && input.EndOfStream;
-
-		private char NextChar()
+        bool TryNextItem(out T next)
 		{
-			return (char)input.Read();
-		}
+            if (input.MoveNext())
+            {
+                next = input.Current;
+                return true;
+            }
+            input.Dispose();
+            next = default(T);
+            return false;
+        }
 	}
 }

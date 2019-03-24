@@ -35,29 +35,30 @@ namespace Core
 
 		// TODO: This and LoadFiles() should probably be in a separate file in the interpreter folder
 		public void LoadFile(string filePath)
-		{
-			PeekBuffer buffer = new PeekBuffer(fileRepository.OpenFile(filePath));
+        {
+            var file = fileRepository.OpenFile(filePath);
 
 			// TODO: Add token reader configuration
-            List<ITokenReader> tokenReaders = new List<ITokenReader>
+            List<ITokenReader> tokenReaders = StandardTokenReaders();
+
+            Tokenizer tokenizer = new Tokenizer(file, tokenReaders);
+			// TODO: finish
+		}
+
+        static List<ITokenReader> StandardTokenReaders()
+        {
+            return new List<ITokenReader>
             {
                 new WhiteSpaceReader(),
                 new NameReader(),
                 new NumberReader(),
                 new StringTokenReader(),
+                new CommentReader(),
                 new SingleSymbolReader(':', TokenType.Colon),
                 new SingleSymbolReader(',', TokenType.Comma),
                 new SingleSymbolReader('(', TokenType.LeftParen),
                 new SingleSymbolReader(')', TokenType.RightParen)
             };
-
-            Tokenizer tokenizer = new Tokenizer(buffer, tokenReaders);
-			while (!tokenizer.EndOfFile)
-			{
-				var token = tokenizer.GetToken();
-				Console.WriteLine(string.Format("{0} {1}", token.Type, token.Data ?? ""));
-				if (token.Type == TokenType.Undefined) break;
-			}
-		}
-	}
+        }
+    }
 }

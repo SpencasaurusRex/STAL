@@ -9,22 +9,20 @@ namespace Core.Interpreter.Tokens
 			return char.IsLetter(c);
 		}
 
-		public bool CheckToken(PeekBuffer buffer)
+		public bool CheckToken(PeekBuffer<char> buffer)
 		{
 			return true;
 		}
 
-		public TokenInfo ReadToken(PeekBuffer buffer)
+		public TokenInfo ReadToken(PeekBuffer<char> buffer)
 		{
 			StringBuilder name = new StringBuilder();
 
-			while (!buffer.EndOfStream)
+			while (buffer.TryPeek(out var nextChar))
 			{
-				char nextChar = buffer.Peek();
-
-				if (char.IsLetterOrDigit(nextChar))
+                if (char.IsLetterOrDigit(nextChar))
 				{
-					name.Append(buffer.Read());
+					name.Append(buffer.TryRead(out _));
 				}
 				else
 				{

@@ -7,19 +7,18 @@
 			return char.IsWhiteSpace(c);
 		}
 
-		public bool CheckToken(PeekBuffer buffer)
+		public bool CheckToken(PeekBuffer<char> buffer)
 		{
 			return true;
 		}
 
-		public TokenInfo ReadToken(PeekBuffer buffer)
+		public TokenInfo ReadToken(PeekBuffer<char> buffer)
 		{
-			while (!buffer.EndOfStream)
+			while (buffer.TryPeek(out var nextChar))
 			{
-				char nextChar = buffer.Peek();
 				if (char.IsWhiteSpace(nextChar))
 				{
-					buffer.Read();
+					buffer.TryRead(out _);
 				}
 				else break;
 			}

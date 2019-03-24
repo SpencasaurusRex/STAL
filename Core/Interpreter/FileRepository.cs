@@ -1,17 +1,30 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Core.Interpreter
 {
 	class FileRepository
 	{
-		public StreamReader OpenFile(string filePath)
+		public PeekBuffer<char> OpenFile(string filePath)
 		{
 			CheckFile(filePath);
-			return File.OpenText(filePath);
-		}
+            var enumerator = GetCharEnumerator(filePath);
+            return new PeekBuffer<char>(enumerator);
+        }
 
-		public void CheckFile(string filePath)
+        static IEnumerator<char> GetCharEnumerator(string filePath)
+        {
+            using (StreamReader reader = File.OpenText(filePath))
+            {
+                while (!reader.EndOfStream)
+                {
+                    yield return (char) reader.Read();
+                }
+            }
+        }
+
+        public void CheckFile(string filePath)
 		{
 			if (!ValidFileExtension(filePath))
 			{

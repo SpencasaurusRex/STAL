@@ -9,29 +9,29 @@ namespace Core.Interpreter.Tokens
 			return char.IsDigit(c) || c == '.';
 		}
 
-		public bool CheckToken(PeekBuffer buffer)
+		public bool CheckToken(PeekBuffer<char> buffer)
 		{
 			return true;
 		}
 
-		public TokenInfo ReadToken(PeekBuffer buffer)
+		public TokenInfo ReadToken(PeekBuffer<char> buffer)
 		{
 			bool seenDecimal = false;
 			StringBuilder number = new StringBuilder();
 
-			while (!buffer.EndOfStream)
+			while (buffer.TryPeek(out var nextChar))
 			{
-				char nextChar = buffer.Peek();
-
-				if (char.IsDigit(nextChar))
-				{
-					number.Append(buffer.Read());
+                if (char.IsDigit(nextChar))
+                {
+                    number.Append(nextChar);
+                    buffer.TryRead(out _);
 				}
 				else if (!seenDecimal && nextChar == '.')
 				{
 					seenDecimal = true;
-					number.Append(buffer.Read());
-				}
+					number.Append(nextChar);
+                    buffer.TryRead(out _);
+                }
 				else
 				{
 					break;

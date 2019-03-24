@@ -2,9 +2,9 @@
 
 namespace Core.Interpreter
 {
-	internal class Parser
+	class Parser
 	{
-		Tokenizer tokenizer;
+		readonly Tokenizer tokenizer;
 
 		public Parser(Tokenizer tokenizer)
 		{

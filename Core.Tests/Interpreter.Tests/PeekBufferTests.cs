@@ -9,146 +9,100 @@ namespace Core.Tests.Interpreter.Tests
 	public class PeekBufferTests
 	{
 		[TestMethod]
-		public void PeekTest_OutOfOrder()
-		{
-			var streamReader = new StringStreamReader("ABCDEFG");
-			PeekBuffer buffer = new PeekBuffer(streamReader);
-			Assert.AreEqual('A', buffer.Peek(0));
-			Assert.AreEqual('C', buffer.Peek(2));
-			Assert.AreEqual('B', buffer.Peek(1));
-			Assert.AreEqual('D', buffer.Peek(3));
-            Assert.AreEqual('G', buffer.Peek(6));
-            Assert.AreEqual('F', buffer.Peek(5));
-            Assert.AreEqual('E', buffer.Peek(4));
-		}
-
-        [TestMethod]
-        public void PeekTest_Sequential()
+		public void TryPeek_OutOfOrder()
         {
-            var streamReader = new StringStreamReader("123456");
-            PeekBuffer buffer = new PeekBuffer(streamReader);
-            Assert.AreEqual('1', buffer.Peek(0));
-            Assert.AreEqual('2', buffer.Peek(1));
-            Assert.AreEqual('3', buffer.Peek(2));
-            Assert.AreEqual('4', buffer.Peek(3));
-            Assert.AreEqual('5', buffer.Peek(4));
-            Assert.AreEqual('6', buffer.Peek(5));
+            var enumerator = "ABC".GetEnumerator();
+            PeekBuffer<char> buffer = new PeekBuffer<char>(enumerator);
+
+            Assert.IsTrue(buffer.TryPeek(0, out var peeked));
+            Assert.AreEqual('A', peeked);
+            Assert.IsTrue(buffer.TryPeek(2, out peeked));
+            Assert.AreEqual('C', peeked);
+            Assert.IsTrue(buffer.TryPeek(1, out peeked));
+            Assert.AreEqual('B', peeked);
         }
 
         [TestMethod]
-        [ExpectedException(typeof(EndOfStreamException))]
-        public void PeekTest_EndOfStreamException()
+        public void TryPeek_Sequential()
         {
-            var streamReader = new StringStreamReader("");
-            PeekBuffer buffer = new PeekBuffer(streamReader);
-            buffer.Peek();
+            var enumerator = "123".GetEnumerator();
+            PeekBuffer<char> buffer = new PeekBuffer<char>(enumerator);
+            
+            Assert.IsTrue(buffer.TryPeek(0, out var peeked));
+            Assert.AreEqual('1', peeked);
+            Assert.IsTrue(buffer.TryPeek(1, out peeked));
+            Assert.AreEqual('2', peeked);
+            Assert.IsTrue(buffer.TryPeek(2, out peeked));
+            Assert.AreEqual('3', peeked);
         }
 
         [TestMethod]
-        public void PeekTest_EndOfStream_True()
+        public void TryPeek_NoMoreItems()
         {
-            var streamReader = new StringStreamReader("");
-            PeekBuffer buffer = new PeekBuffer(streamReader);
-
-            Assert.IsTrue(buffer.EndOfStream);
-        }
-
-        [TestMethod]
-        public void PeekTest_EndOfStream_False()
-        {
-            var streamReader = new StringStreamReader("1");
-            PeekBuffer buffer = new PeekBuffer(streamReader);
-
-            Assert.IsFalse(buffer.EndOfStream);
-
-            buffer.Peek();
-
-            Assert.IsFalse(buffer.EndOfStream);
+            var enumerator = "".GetEnumerator();
+            PeekBuffer<char> buffer = new PeekBuffer<char>(enumerator);
+            Assert.IsFalse(buffer.TryPeek(out var _));
         }
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentOutOfRangeException))]
-		public void PeekTest_NegativeIndex()
+		public void TryPeek_NegativeIndex()
 		{
-			var streamReader = new StringStreamReader("1");
-			PeekBuffer buffer = new PeekBuffer(streamReader);
+            var enumerator = "1".GetEnumerator();
+            PeekBuffer<char> buffer = new PeekBuffer<char>(enumerator);
 
-			buffer.Peek(-1);
+            buffer.TryPeek(-1, out char _);
 		}
 
 		[TestMethod]
-		public void ReadTest_Sequential()
+		public void TryRead_Sequential()
 		{
-			var streamReader = new StringStreamReader("12345");
-			PeekBuffer buffer = new PeekBuffer(streamReader);
+            var enumerator = "123".GetEnumerator();
+            PeekBuffer<char> buffer = new PeekBuffer<char>(enumerator);
 
-			Assert.AreEqual('1', buffer.Read());
-			Assert.AreEqual('2', buffer.Read());
-			Assert.AreEqual('3', buffer.Read());
-			Assert.AreEqual('4', buffer.Read());
-			Assert.AreEqual('5', buffer.Read());
+            Assert.IsTrue(buffer.TryRead(out var item));
+            Assert.AreEqual('1', item);
+            Assert.IsTrue(buffer.TryRead(out item));
+            Assert.AreEqual('2', item);
+            Assert.IsTrue(buffer.TryRead(out item));
+            Assert.AreEqual('3', item);
+
+        }
+
+		[TestMethod]
+		public void TryRead_NoMoreItems()
+		{
+            var enumerator = "".GetEnumerator();
+            PeekBuffer<char> buffer = new PeekBuffer<char>(enumerator);
+            
+            Assert.IsFalse(buffer.TryRead(out var _));
 		}
 
 		[TestMethod]
-		public void ReadTest_EndofStream_True()
+		public void PeekBeforeRead()
 		{
-			var streamReader = new StringStreamReader("");
-			PeekBuffer buffer = new PeekBuffer(streamReader);
+            var enumerator = "1234".GetEnumerator();
+            PeekBuffer<char> buffer = new PeekBuffer<char>(enumerator);
 
-			Assert.IsTrue(buffer.EndOfStream);
-		}
+            Assert.IsTrue(buffer.TryPeek(out var item));
+            Assert.AreEqual('1', item);
+            Assert.IsTrue(buffer.TryPeek(1, out item));
+            Assert.AreEqual('2', item);
 
-		[TestMethod]
-		public void ReadTest_EndOfStream_False()
-		{
-			var streamReader = new StringStreamReader("1");
-			PeekBuffer buffer = new PeekBuffer(streamReader);
+            Assert.IsTrue(buffer.TryRead(out item));
+            Assert.AreEqual('1', item);
+            Assert.IsTrue(buffer.TryRead(out item));
+            Assert.AreEqual('2', item);
 
-			Assert.IsFalse(buffer.EndOfStream);
-		}
+            Assert.IsTrue(buffer.TryPeek(out item));
+            Assert.AreEqual('3', item);
+            Assert.IsTrue(buffer.TryPeek(1, out item));
+            Assert.AreEqual('4', item);
 
-		[TestMethod]
-		public void PeekReadTest_PeekRead()
-		{
-			var streamReader = new StringStreamReader("1234");
-			PeekBuffer buffer = new PeekBuffer(streamReader);
-
-			Assert.AreEqual('1', buffer.Peek());
-			Assert.AreEqual('2', buffer.Peek(1));
-			Assert.AreEqual('1', buffer.Read());
-			Assert.AreEqual('2', buffer.Read());
-
-			Assert.AreEqual('3', buffer.Peek());
-			Assert.AreEqual('4', buffer.Peek(1));
-			Assert.AreEqual('3', buffer.Read());
-			Assert.AreEqual('4', buffer.Read());
-		}
-
-		[TestMethod]
-		[ExpectedException(typeof(EndOfStreamException))]
-		public void ReadTest_EndOfStreamException()
-		{
-			var streamReader = new StringStreamReader("");
-			PeekBuffer buffer = new PeekBuffer(streamReader);
-			
-			buffer.Read();
-		}
+            Assert.IsTrue(buffer.TryRead(out item));
+            Assert.AreEqual('3', item);
+            Assert.IsTrue(buffer.TryRead(out item));
+            Assert.AreEqual('4', item);
+        }
     }
-
-	public class StringStreamReader : StreamReader
-	{
-		public StringStreamReader(string str) : base(StreamFromString(str))
-		{
-		}
-
-		public static Stream StreamFromString(string s)
-		{
-			var stream = new MemoryStream();
-			var writer = new StreamWriter(stream);
-			writer.Write(s);
-			writer.Flush();
-			stream.Position = 0;
-			return stream;
-		}
-	}
 }

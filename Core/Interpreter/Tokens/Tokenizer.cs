@@ -1,28 +1,27 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Core.Interpreter.Tokens
 {
-    class Tokenizer
+    class Tokenizer : IEnumerator<TokenInfo>
 	{
-        readonly PeekBuffer input;
+        readonly PeekBuffer<char> input;
         readonly List<ITokenReader> tokenReaders;
 
-		public Tokenizer(PeekBuffer input, List<ITokenReader> tokenReaders)
+		public Tokenizer(PeekBuffer<char> input, List<ITokenReader> tokenReaders)
 		{
 			this.input = input;
 			this.tokenReaders = tokenReaders;
 		}
 
-		public TokenInfo GetToken()
+		bool TryGetToken(out TokenInfo tokenInfo)
 		{
-			if (EndOfFile)
-			{
-				throw new EndOfStreamException();
-			}
-
+            tokenInfo = null;
 		readers:
-			char firstChar = input.Peek();
+            if (!input.TryPeek(out var firstChar))
+            {
+                return false;
+            }
 			foreach (var reader in tokenReaders)
             {
                 if (!reader.IsStartingChar(firstChar) || !reader.CheckToken(input))
@@ -32,11 +31,33 @@ namespace Core.Interpreter.Tokens
 
                 var output = reader.ReadToken(input);
                 if (output == null) goto readers;
-                return output;
+                tokenInfo = output;
+                return true;
             }
-			return new TokenInfo(TokenType.Undefined);
-		}
+			tokenInfo = new TokenInfo(TokenType.Undefined);
+            return false;
+        }
 
-		public bool EndOfFile => input.EndOfStream;
-	}
+        public void Dispose()
+        {    
+        }
+
+        public bool MoveNext()
+        {
+            if (TryGetToken(out var next))
+            {
+                Current = next;
+                return true;
+            }
+            return false;
+        }
+
+        public void Reset()
+        {
+        }
+
+        public TokenInfo Current { get; private set; }
+
+        object IEnumerator.Current => Current;
+    }
 }
