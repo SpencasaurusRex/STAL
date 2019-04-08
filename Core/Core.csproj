@@ -49,9 +49,14 @@
   <ItemGroup>
     <Compile Include="Engine.cs" />
     <Compile Include="Interpreter\FileRepository.cs" />
+    <Compile Include="Interpreter\Productions\ExpressionReader.cs" />
+    <Compile Include="Interpreter\Productions\FunctionReader.cs" />
     <Compile Include="Interpreter\Productions\IProductionReader.cs" />
     <Compile Include="Interpreter\Productions\Parser.cs" />
     <Compile Include="Interpreter\PeekBuffer.cs" />
+    <Compile Include="Interpreter\Productions\ProductionInfo.cs" />
+    <Compile Include="Interpreter\Productions\StringReader.cs" />
+    <Compile Include="Interpreter\Productions\VariableReader.cs" />
     <Compile Include="Interpreter\Tokens\CommentReader.cs" />
     <Compile Include="Interpreter\Tokens\NameReader.cs" />
     <Compile Include="Interpreter\Tokens\SingleSymbolReader.cs" />

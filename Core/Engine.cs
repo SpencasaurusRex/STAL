@@ -1,4 +1,5 @@
 ﻿using Core.Interpreter;
+using Core.Interpreter.Productions;
 using Core.Interpreter.Tokens;
 using System;
 using System.Collections.Generic;
@@ -40,9 +41,17 @@ namespace Core
 
 			// TODO: Add token reader configuration
             List<ITokenReader> tokenReaders = StandardTokenReaders();
-
             Tokenizer tokenizer = new Tokenizer(file, tokenReaders);
-			// TODO: finish
+
+			// TODO: Add production reader configuration
+			List<IProductionReader> productionReaders = StandardProductionReaders();
+			Parser parser = new Parser(new PeekBuffer<TokenInfo>(tokenizer), productionReaders);
+
+			foreach (var productionInfo in parser.Parse())
+			{
+				Console.WriteLine(productionInfo);
+			}
+			// TODO: Finish
 		}
 
         static List<ITokenReader> StandardTokenReaders()
@@ -60,5 +69,13 @@ namespace Core
                 new SingleSymbolReader(')', TokenType.RightParen)
             };
         }
+
+		static List<IProductionReader> StandardProductionReaders()
+		{
+			return new List<IProductionReader>
+			{
+				new FunctionReader(),
+			};
+		}
     }
 }

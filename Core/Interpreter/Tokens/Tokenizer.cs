@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Interpreter.Tokens
 {
-    class Tokenizer : IEnumerator<TokenInfo>
+    public class Tokenizer : IEnumerator<TokenInfo>
 	{
         readonly PeekBuffer<char> input;
         readonly List<ITokenReader> tokenReaders;

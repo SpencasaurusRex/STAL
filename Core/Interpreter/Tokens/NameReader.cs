@@ -22,7 +22,8 @@ namespace Core.Interpreter.Tokens
 			{
                 if (char.IsLetterOrDigit(nextChar))
 				{
-					name.Append(buffer.TryRead(out _));
+					buffer.TryRead(out var c);
+					name.Append(c);
 				}
 				else
 				{
