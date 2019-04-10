@@ -1,7 +1,6 @@
 ﻿using STAL.Core.Interpreter;
 using STAL.Core.Interpreter.Productions;
 using STAL.Core.Interpreter.Tokens;
-using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -49,7 +48,7 @@ namespace STAL.Core
 
 			foreach (var productionInfo in parser.Parse())
 			{
-				Console.WriteLine(productionInfo.Data);
+				//Console.WriteLine(productionInfo.Data);
 			}
 			// TODO: Finish
 		}

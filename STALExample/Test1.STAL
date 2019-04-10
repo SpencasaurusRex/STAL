@@ -1,1 +1,1 @@
-﻿Add(B(), 1)
+﻿OnEntry(If(Equals(TimesEntered(this), 0), Display(StartingCellFirstText)))

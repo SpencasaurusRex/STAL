@@ -5,75 +5,66 @@ namespace STAL.Core.Interpreter
 {
 	public class PeekBuffer<T>
 	{
-        readonly IEnumerator<T> input;
-		
-		// Represents items that have been read from input, but not from this PeekBuffer
-        readonly Queue<T> inputQueue;
+		readonly IEnumerator<T> input;
 
-        public PeekBuffer(IEnumerator<T> input)
+		int currentIndex = 0;
+		int peekedIndex = 0;
+		T[] items;
+		int size = 32;
+
+		public PeekBuffer(IEnumerator<T> input)
 		{
 			this.input = input;
-			inputQueue = new Queue<T>();
+			items = new T[size];
 		}
 
-        public bool TryPeek(out T item)
-        {
-            return TryPeek(0, out item);
-        }
+		public bool TryPeek(out T item) => TryPeek(0, out item);
 
-        public bool TryPeek(int index, out T item)
+		public bool TryPeek(int index, out T item)
 		{
 			if (index < 0)
 			{
 				throw new ArgumentOutOfRangeException(nameof(index));
 			}
 
-			if (index < inputQueue.Count)
+			// We haven't read that index from the input yet
+			while (currentIndex + index >= peekedIndex)
 			{
-				// The input queue already has that char in it
-				item = inputQueue.ToArray()[index];
-                return true;
-            }
-
-			int peeked = inputQueue.Count;
-			do
-			{
-                if (TryNextItem(out item))
-                {
-                    inputQueue.Enqueue(item);
-                }
-                else
-                {
-                    return false;
-                }
+				if (!ReadFromInput())
+				{
+					item = default(T);
+					return false;
+				}
 			}
-			while (peeked++ < index);
-
-            return true;
-        }
+			
+			item = items[(currentIndex + index) % size];
+			return true;
+		}
 
 		public bool TryRead(out T item)
 		{
-            if (inputQueue.Count > 0 || TryPeek(out T _))
-            {
-                item = inputQueue.Dequeue();
-                return true;
-            }
+			if (currentIndex == peekedIndex)
+			{
+				if (!ReadFromInput())
+				{
+					item = default(T);
+					return false;
+				}
+			}
+			item = items[currentIndex++ % size];
+			return true;
+		}
 
-            item = default(T);
-            return false;
-        }
-
-        bool TryNextItem(out T next)
+		bool ReadFromInput()
 		{
-            if (input.MoveNext())
-            {
-                next = input.Current;
-                return true;
-            }
-            input.Dispose();
-            next = default(T);
-            return false;
-        }
+			if (input.MoveNext())
+			{
+				items[peekedIndex++ % size] = input.Current;
+				return true;
+			}
+			input.Dispose();
+			return false;
+		}
 	}
 }
+
