@@ -1,8 +1,8 @@
-﻿using Core.Interpreter.Tokens;
+﻿using STAL.Core.Interpreter.Tokens;
 using System;
 using System.Text;
 
-namespace Core.Interpreter.Productions
+namespace STAL.Core.Interpreter.Productions
 {
 	public class FunctionReader : IProductionReader
 	{

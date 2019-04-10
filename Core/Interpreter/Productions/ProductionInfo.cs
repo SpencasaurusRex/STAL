@@ -1,4 +1,4 @@
-﻿namespace Core.Interpreter.Productions
+﻿namespace STAL.Core.Interpreter.Productions
 {
 	// TODO: Make this into an interface and implement with each type of production
 	// Interface should require returning of named identifiers and their type so we can perform static analysis

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Core.Interpreter.Tokens
+namespace STAL.Core.Interpreter.Tokens
 {
     public class Tokenizer : IEnumerator<TokenInfo>
 	{

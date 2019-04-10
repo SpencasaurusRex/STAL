@@ -1,6 +1,6 @@
-﻿using Core.Interpreter.Tokens;
+﻿using STAL.Core.Interpreter.Tokens;
 
-namespace Core.Interpreter.Productions
+namespace STAL.Core.Interpreter.Productions
 {
 	public class StringReader : IProductionReader
 	{

@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Core.Tests.Interpreter.Productions.Tests
+namespace STAL.Core.Tests.Interpreter.Productions.Tests
 {
 	[TestClass]
 	public class ParserTest

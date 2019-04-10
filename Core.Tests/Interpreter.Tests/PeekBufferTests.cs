@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Core.Interpreter;
-using System.IO;
+using STAL.Core.Interpreter;
 using System;
 
 namespace Core.Tests.Interpreter.Tests

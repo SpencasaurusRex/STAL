@@ -1,4 +1,4 @@
-﻿namespace Core.Interpreter.Tokens
+﻿namespace STAL.Core.Interpreter.Tokens
 {
 	public class SingleSymbolReader : ITokenReader
 	{

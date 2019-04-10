@@ -1,5 +1,5 @@
-﻿using Core.Interpreter;
-using Core.Interpreter.Tokens;
+﻿using STAL.Core.Interpreter;
+using STAL.Core.Interpreter.Tokens;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 

@@ -1,8 +1,8 @@
-﻿using Core.Interpreter.Productions;
-using Core.Interpreter.Tokens;
+﻿using STAL.Core.Interpreter.Productions;
+using STAL.Core.Interpreter.Tokens;
 using System.Collections.Generic;
 
-namespace Core.Interpreter
+namespace STAL.Core.Interpreter
 {
 	public class Parser
 	{

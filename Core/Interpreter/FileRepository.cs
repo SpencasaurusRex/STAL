@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 
-namespace Core.Interpreter
+namespace STAL.Core.Interpreter
 {
 	class FileRepository
 	{

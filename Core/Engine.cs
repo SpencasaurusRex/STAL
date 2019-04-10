@@ -1,11 +1,11 @@
-﻿using Core.Interpreter;
-using Core.Interpreter.Productions;
-using Core.Interpreter.Tokens;
+﻿using STAL.Core.Interpreter;
+using STAL.Core.Interpreter.Productions;
+using STAL.Core.Interpreter.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace Core
+namespace STAL.Core
 {
 	public class Engine
 	{
