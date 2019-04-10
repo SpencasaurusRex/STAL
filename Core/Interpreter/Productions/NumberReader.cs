@@ -2,11 +2,11 @@
 
 namespace STAL.Core.Interpreter.Productions
 {
-	public class StringReader : IProductionReader
+	public class NumberReader : IProductionReader
 	{
 		public bool FirstToken(TokenInfo token)
 		{
-			return token.Type == TokenType.String;
+			return token.Type == TokenType.Number;
 		}
 
 		public bool IsProduction(PeekBuffer<TokenInfo> tokenStream, int index = 0)
@@ -17,7 +17,7 @@ namespace STAL.Core.Interpreter.Productions
 		public ProductionInfo ReadProduction(PeekBuffer<TokenInfo> tokenStream)
 		{
 			tokenStream.TryRead(out var token);
-			return new ProductionInfo(token.Data);
+			return new ProductionInfo(token.Data.ToString());
 		}
 	}
 }

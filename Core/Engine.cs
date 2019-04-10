@@ -49,7 +49,7 @@ namespace STAL.Core
 
 			foreach (var productionInfo in parser.Parse())
 			{
-				Console.WriteLine(productionInfo);
+				Console.WriteLine(productionInfo.Data);
 			}
 			// TODO: Finish
 		}
@@ -57,10 +57,10 @@ namespace STAL.Core
         static List<ITokenReader> StandardTokenReaders()
         {
             return new List<ITokenReader>
-            {
+			{
                 new WhiteSpaceReader(),
                 new NameReader(),
-                new NumberReader(),
+                new NumberTokenReader(),
                 new StringTokenReader(),
                 new CommentReader(),
                 new SingleSymbolReader(':', TokenType.Colon),
@@ -74,7 +74,7 @@ namespace STAL.Core
 		{
 			return new List<IProductionReader>
 			{
-				new FunctionReader(),
+				new FunctionReader()
 			};
 		}
     }

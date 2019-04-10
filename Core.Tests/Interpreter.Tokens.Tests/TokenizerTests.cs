@@ -21,7 +21,7 @@ namespace Core.Tests.Interpreter.Tokens.Tests
             {
                 new WhiteSpaceReader(),
                 new NameReader(),
-                new NumberReader(),
+                new NumberTokenReader(),
                 new StringTokenReader(),
                 new SingleSymbolReader(':', TokenType.Colon),
                 new SingleSymbolReader(',', TokenType.Comma),

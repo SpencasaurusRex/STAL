@@ -49,20 +49,22 @@
   <ItemGroup>
     <Compile Include="Engine.cs" />
     <Compile Include="Interpreter\FileRepository.cs" />
+    <Compile Include="Interpreter\Productions\AggregateReader.cs" />
     <Compile Include="Interpreter\Productions\ExpressionReader.cs" />
     <Compile Include="Interpreter\Productions\FunctionReader.cs" />
     <Compile Include="Interpreter\Productions\IProductionReader.cs" />
+    <Compile Include="Interpreter\Productions\NumberReader.cs" />
     <Compile Include="Interpreter\Productions\Parser.cs" />
     <Compile Include="Interpreter\PeekBuffer.cs" />
     <Compile Include="Interpreter\Productions\ProductionInfo.cs" />
-    <Compile Include="Interpreter\Productions\StringReader.cs" />
+    <Compile Include="Interpreter\Productions\StringProductionReader.cs" />
     <Compile Include="Interpreter\Productions\VariableReader.cs" />
     <Compile Include="Interpreter\Tokens\CommentReader.cs" />
     <Compile Include="Interpreter\Tokens\NameReader.cs" />
     <Compile Include="Interpreter\Tokens\SingleSymbolReader.cs" />
-    <Compile Include="Interpreter\Tokens\StringReader.cs" />
+    <Compile Include="Interpreter\Tokens\StringTokenReader.cs" />
     <Compile Include="Interpreter\Tokens\TokenInfo.cs" />
-    <Compile Include="Interpreter\Tokens\NumberReader.cs" />
+    <Compile Include="Interpreter\Tokens\NumberTokenReader.cs" />
     <Compile Include="Interpreter\Tokens\ITokenReader.cs" />
     <Compile Include="Interpreter\Tokens\WhitespaceReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

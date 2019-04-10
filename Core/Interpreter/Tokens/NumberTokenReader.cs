@@ -2,7 +2,7 @@
 
 namespace STAL.Core.Interpreter.Tokens
 {
-	public class NumberReader : ITokenReader
+	public class NumberTokenReader : ITokenReader
 	{
 		public bool IsStartingChar(char c)
 		{

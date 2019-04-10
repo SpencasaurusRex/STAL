@@ -17,5 +17,6 @@
 		Function,
 		Variable,
 		String,
+		Number,
 	}
 }

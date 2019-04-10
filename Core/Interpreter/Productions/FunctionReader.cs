@@ -1,5 +1,4 @@
 ﻿using STAL.Core.Interpreter.Tokens;
-using System;
 using System.Text;
 
 namespace STAL.Core.Interpreter.Productions
@@ -33,7 +32,6 @@ namespace STAL.Core.Interpreter.Productions
 			StringBuilder data = new StringBuilder();
 			tokenStream.TryRead(out var nameToken);
 			tokenStream.TryRead(out _);
-			Console.WriteLine($"Read Function name: {nameToken.Data.ToString()}");
 			data.Append(nameToken.Data.ToString());
 			data.Append("(");
 			
